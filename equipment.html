@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Byte Hikers - Categories</title>
+    <link href="styles.css" rel="stylesheet" type="text/css" />
+    <script language="JavaScript">
+
+      /* 
+        Citation for the following JavaScript functions & corresponding HTML:
+        Date: 05/08/2024
+        Adapted from: BSG Planets People module example, people.html
+        Module URL: https://canvas.oregonstate.edu/courses/1958399/pages/exploration-web-application-technology?module_item_id=24181847
+      */
+
+      function showform(dowhat) {
+            /*
+            * four DIVS: browse, insert, update, delete
+            * this function sets one visible the others not
+            */
+            if (dowhat == 'insert'){
+              document.getElementById('browse').style.display = 'none';
+              document.getElementById('insert').style.display = 'block';
+              document.getElementById('update').style.display = 'none';
+              document.getElementById('delete').style.display = 'none';
+            }
+            else if (dowhat == 'update'){
+              document.getElementById('browse').style.display = 'none';
+              document.getElementById('insert').style.display = 'none';
+              document.getElementById('update').style.display = 'block';
+              document.getElementById('delete').style.display = 'none';
+            }
+            else if (dowhat == 'delete'){
+              document.getElementById('browse').style.display = 'none';
+              document.getElementById('insert').style.display = 'none';
+              document.getElementById('update').style.display = 'none';
+              document.getElementById('delete').style.display = 'block';
+            }
+            else if (dowhat == 'all'){
+              document.getElementById('browse').style.display = 'block';
+              document.getElementById('insert').style.display = 'block';
+              document.getElementById('update').style.display = 'block';
+              document.getElementById('delete').style.display = 'block';
+            }
+            else { //by default display browse
+              document.getElementById('browse').style.display = 'block';
+              document.getElementById('insert').style.display = 'none';
+              document.getElementById('update').style.display = 'none';
+              document.getElementById('delete').style.display = 'none';
+            }
+          }
+          function newEquipment() { showform('insert'); }
+          function updateEquipment() { showform('update'); }
+          function deleteEquipment() { showform ('delete'); }
+          function browseEquipment() { showform ('browse'); }
+          function showAll() { showform ('all'); }
+    </script>
+
+  </head>
+  <body onload="browseUsers()">
+    <header>
+        <h1>Recipe Database</h1>
+      </header>
+      <nav id="mainNavigation">
+        <a href=".\main.html"> Home |</a>
+        <a href=".\recipes.html"> Recipes |</a>
+        <a href=".\categories.html"> Categories |</a>
+        <a href=".\cooktimes.html"> Cook Times |</a>
+        <a href=".\equipment.html"> Equipment |</a>
+      </nav>
+    
+    <main>
+        <h2>Equipments</h2>
+        <p>Browse, add, edit, or delete Equipment</p>
+        
+        <div id="browse">
+          <p><a href="#" onClick="newEqupment()">+ Add Category</a></p>
+
+          <table>
+              <tr>
+                  <th>Equipment ID</th>
+                  <th>Equipment Name</th>
+                  <th>Special Equipment? (Equipment used only for one recipe)</th>
+                  <th>Delete</th>
+              </tr>
+              <tr>
+                  <td>1</td>
+                  <td>Ice Cream Maker</td>
+                  <td>TRUE</td>
+                  <td><a href="#" onClick="updateEquipment('this.EquipmentID')">Edit</td>
+                  <td><a href="#" onClick="deleteEquipment('this.EquipmentID')">Delete</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>Stove</td>
+                <td>False</td>
+                <td><a href="#" onClick="updateEquipment('this.EquipmentID')">Edit</td>
+                <td><a href="#" onClick="deleteEquipment('this.EquipmentID')">Delete</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Oven</td>
+                <td>False</td>
+                <td><a href="#" onClick="updateEquipment('this.EquipmentID')">Edit</td>
+                <td><a href="#" onClick="deleteEquipment('this.EquipmentID')">Delete</td>
+            </tr>
+          </table>
+          <p>&nbsp;</p>
+          <p><a href="#" onClick="showAll()">Display all forms</a> </p>
+
+        </div>
+
+        <div id="insert">
+          <form method="POST" id="addEquipment">
+            <legend><strong>Add an equipment</strong></legend>
+            <fieldset class="fields">
+              <label>Equipment ID:</label> <input type="text" name="categoryID" /><br>
+              <label>Equipment Name</label> <input type="text" name="equipmentName" /><br>
+              <label>Special Equipment?</label> <input type="text" name="specialEquipment" /><br>
+            </fieldset>
+            <input class="submit" type="submit" value="Submit">
+          </form>
+        </div>
+  
+        <p>&nbsp;</p>
+        <div id="update">
+          <form method="POST" id="updateEquipment">
+            <legend><strong>Update an equipment</strong></legend>
+            <fieldset class="fields">
+              <label>Equipment ID:</label> <input type="text" name="categoryID" /><br>
+              <label>Equipment Name</label> <input type="text" name="equipmentName" /><br>
+              <label>Special Equipment?</label> <input type="text" name="specialEquipment" /><br>
+            </fieldset>
+            <input class="submit" type="submit" value="Submit">
+          </form>
+        </div>
+  
+      </main>
+    </body>
+  </html>
+  
