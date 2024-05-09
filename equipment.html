@@ -50,8 +50,8 @@
             }
           }
           function newEquipment() { showform('insert'); }
-          function updateEquipment() { showform('update'); }
-          function deleteEquipment() { showform ('delete'); }
+          function updateEquipment(pid) { showform('update'); }
+          function deleteEquipment(pid) { showform ('delete'); }
           function browseEquipment() { showform ('browse'); }
           function showAll() { showform ('all'); }
     </script>
@@ -74,7 +74,7 @@
         <p>Browse, add, edit, or delete Equipment</p>
         
         <div id="browse">
-          <p><a href="#" onClick="newEqupment()">+ Add Category</a></p>
+          <p><a href="#" onClick="newEquipment()">+ Add Equipment</a></p>
 
           <table>
               <tr>
@@ -106,9 +106,8 @@
             </tr>
           </table>
           <p>&nbsp;</p>
-          <p><a href="#" onClick="showAll()">Display all forms</a> </p>
-
-        </div>
+          </div>
+   
 
         <div id="insert">
           <form method="POST" id="addEquipment">
