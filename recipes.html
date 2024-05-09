@@ -1,0 +1,177 @@
+<head>
+    <meta charset="UTF-8" />
+    <title>Recipe Database</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script language="JavaScript">
+      function showform(dowhat) {
+        /*
+         * four DIVS: browse, insert, update, delete
+         * this function sets one visible the others not
+         */
+        if (dowhat == "insert") {
+          document.getElementById("browse").style.display = "none";
+          document.getElementById("insert").style.display = "block";
+          document.getElementById("update").style.display = "none";
+          document.getElementById("delete").style.display = "none";
+        } else if (dowhat == "update") {
+          document.getElementById("browse").style.display = "none";
+          document.getElementById("insert").style.display = "none";
+          document.getElementById("update").style.display = "block";
+          document.getElementById("delete").style.display = "none";
+        } else if (dowhat == "delete") {
+          document.getElementById("browse").style.display = "none";
+          document.getElementById("insert").style.display = "none";
+          document.getElementById("update").style.display = "none";
+          document.getElementById("delete").style.display = "block";
+        } else if (dowhat == "all") {
+          document.getElementById("browse").style.display = "block";
+          document.getElementById("insert").style.display = "block";
+          document.getElementById("update").style.display = "block";
+          document.getElementById("delete").style.display = "block";
+        } else {
+          //by default display browse
+          document.getElementById("browse").style.display = "block";
+          document.getElementById("insert").style.display = "none";
+          document.getElementById("update").style.display = "none";
+          document.getElementById("delete").style.display = "none";
+        }
+      }
+      function newRecipe() {
+        showform("insert");
+      }
+      function updateRecipe(pid) {
+        showform("update");
+      }
+      function deleteRecipe(pid) {
+        showform("delete");
+      }
+      function browseRecipe() {
+        showform("browse");
+      }
+      function showAll() {
+        showform("all");
+      }
+    </script>
+  </head>
+  <body>
+    <header>
+      <h1>Recipe Database</h1>
+    </header>
+    <nav id="mainNavigation">
+      <a href=".\main.html"> Home |</a>
+      <a href=".\recipes.html"> Recipes |</a>
+      <a href=".\categories.html"> Categories |</a>
+      <a href=".\cooktimes.html"> Cook Times |</a>
+      <a href=".\equipment.html"> Equipment |</a>
+    </nav>
+  
+    <main>
+      <h2>Recipes</h2>
+      <p>Browse, add, edit, or delete users, or see all recipes.</p>
+  
+      <div id="browse">
+        <p><a href="#" onClick="newRecipe()">+ Add Recipe</a></p>
+  
+        <table>
+          <tr>
+            <th>Recipe ID</th>
+            <th>Recipe Name</th>
+            <th>Serving</th>
+            <th>Dietary Restriction</th>
+            <th>Edit</th>
+            <th>Delete</th>
+          </tr>
+  
+          <tr>
+            <td>1</td>
+            <td>Ice Cream</td>
+            <td>1 Quart</td>
+            <td>lactose</td>
+            <td>
+              <a href="#" onClick="updateRecipe('this.RecipeID')">Edit</a>
+            </td>
+            <td>
+              <a href="#" onclick="deleteRecipe('this.RecipeID')">Delete</a>
+            </td>
+          </tr>
+  
+          <tr>
+            <td>2</td>
+            <td>Pancakes</td>
+            <td>8 Pancakes</td>
+            <td>gluten</td>
+            <td>
+              <a href="#" onClick="updateRecipe('this.RecipeID')">Edit</a>
+            </td>
+            <td>
+              <a href="#" onclick="deleteRecipe('this.RecipeID')">Delete</a>
+            </td>
+          </tr>
+
+          <tr>
+            <td>3</td>
+            <td>Mac and Cheese</td>
+            <td>2 bowls</td>
+            <td>lactose</td>
+            <td>
+              <a href="#" onClick="updateRecipe('this.RecipeID')">Edit</a>
+            </td>
+            <td>
+              <a href="#" onclick="deleteRecipe('this.RecipeID')">Delete</a>
+            </td>
+          </tr>
+      </div>
+      <tr>
+        <td>4</td>
+        <td>White Cake</td>
+        <td>8 Slices</td>
+        <td>gluten</td>
+        <td>
+          <a href="#" onClick="updateRecipe('this.RecipeID')">Edit</a>
+        </td>
+        <td>
+          <a href="#" onclick="deleteRecipe('this.RecipeID')">Delete</a>
+        </td>
+      </tr>
+    </table>
+  </div>
+  
+      <div id="insert">
+        <form method="POST" id="addRecipe">
+          <legend><strong> Add a Recipe</strong></legend>
+          <fieldset class="fields">
+            <label>Recipe ID</label>
+            <input type="text" name="RecipeID" /><br />
+            <label>Recipe Name</label>
+            <input type="text" name="RecipeName" /><br />
+            <label>Serving</label>
+            <input type="text" name="RecipeServing" /><br />
+            <label>Dietary Restriction</label>
+            <input type="text" name="RecipeRestriction" /><br />
+            
+          </fieldset>
+          <input class="submit" type="submit" value="Submit" />
+        </form>
+      </div>
+      <p>&nbsp;</p>
+  
+      <div id="update">
+        <form method="POST" id="updateRecipe">
+          <legend><strong> Update a Recipe</strong></legend>
+          <fieldset class="fields">
+            <label>Recipe ID</label>
+            <input type="text" name="RecipeID" /><br />
+            <label>Recipe Name</label>
+            <input type="text" name="RecipeName" /><br />
+            <label>Serving</label>
+            <input type="text" name="RecipeServing" /><br />
+            <label>Dietary Restriction</label>
+            <input type="text" name="RecipeRestriction" /><br />
+          </fieldset>
+          <input class="submit" type="submit" value="Submit" />
+        </form>
+      </div>
+      <p>&nbsp;</p>
+    </main>
+  </body>
+  
