@@ -136,14 +136,13 @@
         </td>
       </tr>
     </table>
+    <p>&nbsp;</p>
   </div>
   
       <div id="insert">
         <form method="POST" id="addRecipe">
           <legend><strong> Add a Recipe</strong></legend>
           <fieldset class="fields">
-            <label>Recipe ID</label>
-            <input type="text" name="RecipeID" /><br />
             <label>Recipe Name</label>
             <input type="text" name="RecipeName" /><br />
             <label>Serving</label>
@@ -161,12 +160,35 @@
         <form method="POST" id="updateRecipe">
           <legend><strong> Update a Recipe</strong></legend>
           <fieldset class="fields">
-            <label>Recipe ID</label>
-            <input type="text" name="RecipeID" /><br />
             <label>Recipe Name</label>
             <input type="text" name="RecipeName" /><br />
             <label>Serving</label>
             <input type="text" name="RecipeServing" /><br />
+            <label>Category</label>
+            <select name="categoryID" id="categoryID">
+              <option value="4">Lunch</option>
+              <option value="5">Snack</option>
+              <option value="1">Desert</option>
+              <option value="2">Breakfast</option>
+              <option value="3">Dinner</option>
+              <option value="6" selected>Other</option>
+            </select>
+            <label>Equipment (optional)</label>
+            <select name="equipmentID" id="equipmentID">
+              <option value="1">Ice Cream Maker</option>
+              <option value="2">Stove</option>
+              <option value="3">Oven</option>
+              <option value="4" selected>Other</option>
+            </select>
+            <label>Cook Times in minutes (optional)</label>
+            <select name="cookTimeID" id="cookTimeID">
+              <option value="1">120 </option>
+              <option value="2">20</option>
+              <option value="3">30</option>
+              <option value="4">60</option>
+              <option value="5">90</option>
+              <option value="6" selected>Other</option>
+            </select>
             <label>Dietary Restriction</label>
             <input type="text" name="RecipeRestriction" /><br />
           </fieldset>
