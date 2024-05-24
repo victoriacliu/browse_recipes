@@ -8,15 +8,14 @@ updateEquipmentForm.addEventListener("submit", function (e) {
     e.preventDefault();
 
     // Get form fields we need to get data from
-    let inputequipmentName = document.getElementById("mySelect");
-    let inputspecialEquipment= document.getElementById("input-specialEquipment-update");
+    let inputEquipmentName = document.getElementById("mySelect");
+    let inputSpecialEquipment= document.getElementById("input-specialEquipment-update");
 
     // Get the values from the form fields
-    let equipmentNameValue = inputequipmentName.value;
-    let specialEquipmentValue = inputspecialEquipment.value;
+    let equipmentNameValue = inputEquipmentName.value;
+    let specialEquipmentValue = inputSpecialEquipment.value;
 
-    // currently the database table for bsg_people does not allow updating values to NULL
-    // so we must abort if being bassed NULL for specialEquipment
+    //  abort if being bassed NULL for specialEquipment
 
     if (isNaN(specialEquipmentValue)) {
         return;
@@ -56,7 +55,7 @@ updateEquipmentForm.addEventListener("submit", function (e) {
 function updateRow(data, equipmentID) {
     let parsedData = JSON.parse(data);
 
-    let table = document.getElementById("people-table");
+    let table = document.getElementById("equipment-table");
 
     for (let i = 0, row; row = table.rows[i]; i++) {
         //iterate through rows
