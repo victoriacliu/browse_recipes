@@ -7,6 +7,7 @@ var express = require('express');
 var app = express();
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
+app.use(express.static('public'))
 
 PORT = 3187;
 
@@ -36,6 +37,12 @@ app.post('/add-equipment-form', function (req, res) {
     // Capture the incoming data and parse it back to a JS object
     let data = req.body;
 
+    // Capture NULL values
+    let specialEquipment = parseInt(data['input-specialEquipment']);
+    if (isNaN(specialEquipment))
+    {
+        specialEquipment = 'NULL'
+    }
 
     // Create the query and run it on the database
     query1 = `INSERT INTO Equipment (equipmentName,specialEquipment) VALUES ('${data['input-equipmentName']}', '${data['input-specialEquipment']}')`;
