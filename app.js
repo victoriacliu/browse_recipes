@@ -67,30 +67,17 @@ app.post('/add-equipment-form', function (req, res) {
 app.delete('/delete-equipment-ajax/', function (req, res, next) {
     let data = req.body;
     let equipmentID = parseInt(data.id);
-    let deleteBsg_Cert_People = `DELETE FROM bsg_cert_people WHERE pid = ?`;
-    let deleteEquipment = `DELETE FROM Equipment WHERE id = ?`;
+    let deleteEquipment = `DELETE FROM Equipment WHERE equipmentID = ?`;
 
 
     // Run the 1st query
-    db.pool.query(deleteBsg_Cert_People, [equipmentID], function (error, rows, fields) {
-        if (error) {
+    db.pool.query(deleteEquipment, [equipmentID], function (error, rows, fields) {
 
-            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+        if (error) {
             console.log(error);
             res.sendStatus(400);
-        }
-
-        else {
-            // Run the second query
-            db.pool.query(deleteEquipment, [equipmentID], function (error, rows, fields) {
-
-                if (error) {
-                    console.log(error);
-                    res.sendStatus(400);
-                } else {
-                    res.sendStatus(204);
-                }
-            })
+        } else {
+            res.sendStatus(204);
         }
     })
 });
