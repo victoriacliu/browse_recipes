@@ -9,7 +9,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(express.static('public'))
 
-PORT = 3187;
+PORT = 3191;
 
 // Database
 var db = require('./database/db-connector');
@@ -32,6 +32,19 @@ app.get('/', function (req, res) {
     })
 });
 
+app.get('/categories', function (req, res) {
+    let query1 = "SELECT * FROM Categories;";
+    db.pool.query(query1, function (error, rows, fields) {
+        res.render('categories', { data: rows });
+    });
+});
+
+app.get('/ingredients', function (req, res) {
+    let query1 = "SELECT * FROM Ingredients;";
+    db.pool.query(query1, function (error, rows, fields) {
+        res.render('ingredients', { data: rows });
+    });
+});
 
 app.post('/add-equipment-form', function (req, res) {
     // Capture the incoming data and parse it back to a JS object
@@ -39,8 +52,7 @@ app.post('/add-equipment-form', function (req, res) {
 
     // Capture NULL values
     let specialEquipment = parseInt(data['input-specialEquipment']);
-    if (isNaN(specialEquipment))
-    {
+    if (isNaN(specialEquipment)) {
         specialEquipment = 'NULL'
     }
 
@@ -64,6 +76,64 @@ app.post('/add-equipment-form', function (req, res) {
     })
 })
 
+
+app.post('/add-ingredient-form', function (req, res) {
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body;
+
+    // Capture NULL values
+    let specialEquipment = parseInt(data['input-ingredientType']);
+    if (isNaN(specialEquipment)) {
+        specialEquipment = 'NULL'
+    }
+
+    // Create the query and run it on the database
+    query1 = `INSERT INTO Ingredients (ingredientName, type) VALUES ('${data['input-ingredientName']}', '${data['input-ingredientType']}')`;
+    db.pool.query(query1, function (error, rows, fields) {
+
+        // Check to see if there was an error
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400);
+        }
+
+        // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM bsg_people and
+        // presents it on the screen
+        else {
+            res.redirect('/ingredients');
+        }
+    })
+})
+
+
+app.post('/add-category-form', function (req, res) {
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body;
+
+    // Create the query and run it on the database
+    query2 = `INSERT INTO Categories (category) VALUES ('${data['input-category']}')`;
+    db.pool.query(query2, function (error, rows, fields) {
+
+        // Check to see if there was an error
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400);
+        }
+
+        // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM bsg_people and
+        // presents it on the screen
+        else {
+            res.redirect('/categories');
+        }
+    })
+})
+
+
+
 app.delete('/delete-equipment-ajax/', function (req, res, next) {
     let data = req.body;
     let equipmentID = parseInt(data.id);
@@ -72,6 +142,25 @@ app.delete('/delete-equipment-ajax/', function (req, res, next) {
 
     // Run the 1st query
     db.pool.query(deleteEquipment, [equipmentID], function (error, rows, fields) {
+
+        if (error) {
+            console.log(error);
+            res.sendStatus(400);
+            res.redirect('/');
+        } else {
+            res.redirect('/');
+        }
+    })
+});
+
+app.delete('/delete-category-ajax/', function (req, res, next) {
+    let data = req.body;
+    let categoryID = parseInt(data.id);
+    let deleteCategory = `DELETE FROM Categories WHERE categoryID = ?`;
+
+
+    // Run the 1st query
+    db.pool.query(deleteCategory, [categoryID], function (error, rows, fields) {
 
         if (error) {
             console.log(error);
