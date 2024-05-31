@@ -1,0 +1,83 @@
+{{!-- Just some plain text --}}
+
+<h1>Recipes database</h1>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+
+{{!-- The Data from our Database --}}
+
+{{!-- Create a table --}}
+<table id="equipment-table">
+
+    {{!-- Header section --}}
+    <thead>
+
+        {{!-- For just the first row, we print each key of the row object as a header cell so we
+        know what each column means when the page renders --}}
+        <tr>
+            {{#each data.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+            <th>delete</th>
+        </tr>
+    </thead>
+
+
+    {{!-- Body section --}}
+    <tbody>
+
+        {{#each data}}
+        <tr>
+            <td>{{this.equipmentID}}</td>
+            <td>{{this.equipmentName}}</td>
+            <td>{{this.specialEquipment}}</td>
+            <td><button onclick="deleteEquipment({{this.equipmentID}})">Delete</button></td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+<script src="./js/delete_equipment.js"></script>
+
+<h2>Adding Data </h2>
+<p>To add a new equipment, please enter the name and if it is a special equipment and click `Submit`!</p>
+<form id="add-equipment-form" method="POST" action="/add-equipment-form">
+    <label for="input-equipmentName">Equipment Name: </label>
+    <input type="text" name="input-equipmentName" id="input-equipmentName"> <br />
+
+    <label for="input-specialEquipment">Is this a specialized equipment just for this recipe? <br /> Please enter 0
+        for "no" and 1 for "yes".</label>
+    <input type="text" name="input-specialEquipment" id="input-specialEquipment">
+
+    <input type="submit">
+</form>
+
+
+<h2>Updating an equipment form</h2>
+<p>To update a equipment, select special or not special</p>
+<form id="update-equipment-form-ajax">
+
+    <label for="input-equipmentName">Full name: </label>
+    <select name="input-equipmentName" id="mySelect">
+        <option value="test">Select a Equipment</option>
+        {{#each data}}
+        <option value="{{this.equipmentID}}">{{this.equipmentName}} </option>
+        {{/each}}
+    </select>
+
+    <label for="input-specialEquipment">Special Equipment? </label>
+    <select name="input-specialEquipment" id="input-specialEquipment-update">
+        <option>1 (yes)</option>
+        <option>0 (no)</option>
+        {{#each Equipment}}
+        <option value="{{this.equipmpentID}}">{{this.specialEquipment}}</option>
+        {{/each}}
+    </select>
+    <input type="submit">
+
+</form>
+
+<script src="./js/update_equipment.js"></script>
