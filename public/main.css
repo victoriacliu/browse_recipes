@@ -1,0 +1,10 @@
+body {
+    background-color: powderblue;
+}
+
+nav {
+    list-style: none;
+    margin: 0 2px;
+    padding: 0;
+    display: flex;
+}

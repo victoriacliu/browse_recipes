@@ -1,57 +1,57 @@
 <h1>Recipes database</h1>
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-
+<link rel="stylesheet" href="main.css">
 
 {{!-- The Data from our Database --}}
 <header>
     <nav class='global'>
-        <a href='/'>Home Page </a> </br>
-        <a href='/categories'>Categories</a> </br>
-        <a href='/ingredients'> Ingredients </a>
+        <a href='/'> Home Page | </a>
+        <a href='/categories'> Categories | </a>
+        <a href='/ingredients'> Ingredients | </a>
     </nav>
 </header>
 {{!-- Create a table --}}
-<table id="ingredients-table">
+<table id="ingredient-table">
+    <table border="1">
+        {{!-- Header section --}}
+        <thead>
 
-    {{!-- Header section --}}
-    <thead>
+            {{!-- For just the first row, we print each key of the row object as a header cell so we
+            know what each column means when the page renders --}}
+            <tr>
+                {{#each data.[0]}}
+                <th>
+                    {{@key}}
+                </th>
+                {{/each}}
+                <th>delete</th>
+            </tr>
+        </thead>
 
-        {{!-- For just the first row, we print each key of the row object as a header cell so we
-        know what each column means when the page renders --}}
-        <tr>
-            {{#each data.[0]}}
-            <th>
-                {{@key}}
-            </th>
+        {{!-- Body section --}}
+        <tbody>
+            {{#each data}}
+            <tr data-value={{this.ingredientID}}>
+                <td>{{this.ingredientID}}</td>
+                <td>{{this.ingredientName}}</td>
+                <td>{{this.type}}</td>
+                <td><button onclick="deleteIngredient({{this.ingredientID}})">Delete</button></td>
+            </tr>
             {{/each}}
-            <th>delete</th>
-        </tr>
-    </thead>
-
-    {{!-- Body section --}}
-    <tbody>
-        {{#each data}}
-        <tr data-value={{this.ingredientID}}>
-            <td>{{this.ingredientID}}</td>
-            <td>{{this.ingredientName}}</td>
-            <td>{{this.type}}</td>
-            <td><button onclick="deleteIngredient({{this.ingredientID}})">Delete</button></td>
-        </tr>
-        {{/each}}
-    </tbody>
-</table>
-<script src="./js/delete_ingredient.js"></script>
+        </tbody>
+    </table>
+    <script src="./js/delete_ingredients.js"></script>
 
 
-<h2>Adding Data </h2>
-<p>To add a new ingredient, please enter the name and if it is a special ingredient and click `Submit`!</p>
-<form id="add-ingredient-form" method="POST" action="/add-ingredient-form">
-    <label for="input-ingredientName">Ingredient Name: </label>
-    <input type="text" name="input-ingredientName" id="input-ingredientName"> <br />
+    <h2>Adding Data </h2>
+    <p>To add a new ingredient, please enter the name and if it is a special ingredient and click `Submit`!</p>
+    <form id="add-ingredient-form" method="POST" action="/add-ingredient-form">
+        <label for="input-ingredientName">Ingredient Name: </label>
+        <input type="text" name="input-ingredientName" id="input-ingredientName"> <br />
 
-    <label for="input-ingredientType">Enter Ingredient Type </label>
-    <input type="text" name="input-ingredientType" id="input-ingredientType">
+        <label for="input-ingredientType">Enter Ingredient Type </label>
+        <input type="text" name="input-ingredientType" id="input-ingredientType">
 
-    <input type="submit">
-</form>
+        <input type="submit">
+    </form>

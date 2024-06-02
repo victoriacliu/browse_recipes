@@ -136,7 +136,7 @@ app.post('/add-category-form', function (req, res) {
 
 app.delete('/delete-equipment-ajax/', function (req, res, next) {
     let data = req.body;
-    let equipmentID = parseInt(data.id);
+    let equipmentID = parseInt(data.equipmentID);
     let deleteEquipment = `DELETE FROM Equipment WHERE equipmentID = ?`;
 
 
@@ -146,16 +146,24 @@ app.delete('/delete-equipment-ajax/', function (req, res, next) {
         if (error) {
             console.log(error);
             res.sendStatus(400);
-            res.redirect('/');
         } else {
-            res.redirect('/');
+            db.pool.query(deleteEquipment, [equipmentID], function (error, rows, fields) {
+
+                if (error) {
+                    console.log(error);
+                    res.sendStatus(400);
+
+                } else {
+                    res.sendStatus(204);
+                }
+            })
         }
     })
 });
 
 app.delete('/delete-category-ajax/', function (req, res, next) {
     let data = req.body;
-    let categoryID = parseInt(data.id);
+    let categoryID = parseInt(data.categoryID);
     let deleteCategory = `DELETE FROM Categories WHERE categoryID = ?`;
 
 
@@ -166,22 +174,57 @@ app.delete('/delete-category-ajax/', function (req, res, next) {
             console.log(error);
             res.sendStatus(400);
         } else {
-            res.sendStatus(204);
+            db.pool.query(deleteCategory, [categoryID], function (error, rows, fields) {
+
+                if (error) {
+                    console.log(error);
+                    res.sendStatus(400);
+
+                } else {
+                    res.sendStatus(204);
+                }
+            })
         }
     })
 });
 
+
+app.delete('/delete-ingredient-ajax/', function (req, res, next) {
+    let data = req.body;
+    let ingredientID = parseInt(data.ingredientID);
+    let deleteIngredient = `DELETE FROM Ingredients WHERE ingredientID = ?`;
+
+
+    // Run the 1st query
+    db.pool.query(deleteIngredient, [ingredientID], function (error, rows, fields) {
+
+        if (error) {
+            console.log(error);
+            res.sendStatus(400);
+        } else {
+            db.pool.query(deleteIngredient, [ingredientID], function (error, rows, fields) {
+
+                if (error) {
+                    console.log(error);
+                    res.sendStatus(400);
+
+                } else {
+                    res.sendStatus(204);
+                }
+            })
+        }
+    })
+});
+
+
 app.put('/put-equipment-ajax', function (req, res, next) {
     let data = req.body;
 
-    let specialEquipment = parseInt(data.specialEquipment);
-    let equipmentName = parseInt(data.equipmentName);
-
-    let queryUpdateEquipment = `UPDATE Equipment SET specialEquipment = ? WHERE equipmentID = ?`;
-    let selectEquipment = `SELECT * FROM Equipment WHERE id = ?`
+    let queryUpdateWorld = `UPDATE Equipment SET equipmentName = '${data.equipmentName}', specialEquipment = '${data.specialEquipment}' WHERE Equipment.equipmentID = '${data.equipmentID}'`;
+    let selectEquipment = `SELECT * FROM Equipment WHERE equipmentID = '${data.equipmentID}'`;
 
     // Run the 1st query
-    db.pool.query(queryUpdateEquipment, [specialEquipment, equipmentName], function (error, rows, fields) {
+    db.pool.query(queryUpdateWorld, function (error, rows, fields) {
         if (error) {
 
             // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
@@ -193,7 +236,7 @@ app.put('/put-equipment-ajax', function (req, res, next) {
         // table on the front-end
         else {
             // Run the second query
-            db.pool.query(selectEquipment, [specialEquipment], function (error, rows, fields) {
+            db.pool.query(selectEquipment, function (error, rows, fields) {
 
                 if (error) {
                     console.log(error);

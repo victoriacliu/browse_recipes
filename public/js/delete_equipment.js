@@ -1,7 +1,7 @@
 function deleteEquipment(equipmentID) {
     // Put our data we want to send in a javascript object
     let data = {
-        id: equipmentID
+        equipmentID: equipmentID
     };
 
     // Setup our AJAX request
@@ -15,6 +15,7 @@ function deleteEquipment(equipmentID) {
 
             // Add the new data to the table
             deleteRow(equipmentID);
+            window.location.reload();
 
         }
         else if (xhttp.readyState == 4 && xhttp.status != 204) {
@@ -39,13 +40,13 @@ function deleteRow(equipmentID) {
         }
     }
 }
-function deleteDropDownMenu(equipmentIDID){
+function deleteDropDownMenu(equipmentID) {
     let selectMenu = document.getElementById("mySelect");
-    for (let i = 0; i < selectMenu.length; i++){
-      if (Number(selectMenu.options[i].value) === Number(equipmentID)){
-        selectMenu[i].remove();
-        break;
-      } 
-  
+    for (let i = 0; i < selectMenu.length; i++) {
+        if (Number(selectMenu.options[i].value) === Number(equipmentID)) {
+            selectMenu[i].remove();
+            break;
+        }
+
     }
-  }
+}
