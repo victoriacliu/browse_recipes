@@ -82,9 +82,9 @@ app.post('/add-ingredient-form', function (req, res) {
     let data = req.body;
 
     // Capture NULL values
-    let specialEquipment = parseInt(data['input-ingredientType']);
-    if (isNaN(specialEquipment)) {
-        specialEquipment = 'NULL'
+    let type = parseInt(data['input-ingredientType']);
+    if (isNaN(type)) {
+        type = 'NULL'
     }
 
     // Create the query and run it on the database
@@ -128,6 +128,23 @@ app.post('/add-category-form', function (req, res) {
         // presents it on the screen
         else {
             res.redirect('/categories');
+        }
+    })
+})
+
+app.post('/add-cookTimes-form', function (req, res) {
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body;
+    // NO NULL values
+    // Create the query and run it on the database
+    query1 = `INSERT INTO CookTimes (time) VALUES ('${data['input-time']}')`;
+    db.pool.query(query1, function (error, rows, fields) {
+        if (error) {
+            console.log(error)
+            res.sendStatus(400);
+        }
+        else {
+            res.redirect('/cooktimes');
         }
     })
 })
@@ -216,6 +233,33 @@ app.delete('/delete-ingredient-ajax/', function (req, res, next) {
     })
 });
 
+app.delete('/delete-cookTimes-ajax/', function (req, res, next) {
+    let data = req.body;
+    let cookTimeID = parseInt(data.cookTimeID);
+    let deleteCookTime = `DELETE FROM CookTimes WHERE cookTimeID = ?`;
+
+
+    // Run the 1st query
+    db.pool.query(deleteCookTime, [cookTimeID], function (error, rows, fields) {
+
+        if (error) {
+            console.log(error);
+            res.sendStatus(400);
+        } else {
+            db.pool.query(deleteCookTime, [cookTimeID], function (error, rows, fields) {
+
+                if (error) {
+                    console.log(error);
+                    res.sendStatus(400);
+
+                } else {
+                    res.sendStatus(204);
+                }
+            })
+        }
+    })
+});
+
 
 app.put('/put-equipment-ajax', function (req, res, next) {
     let data = req.body;
@@ -248,6 +292,42 @@ app.put('/put-equipment-ajax', function (req, res, next) {
         }
     })
 });
+
+
+app.put('/put-cookTimes-ajax', function (req, res, next) {
+    let data = req.body;
+
+    let queryUpdateTime = `UPDATE CookTimes SET time = '${data.time}'`;
+    let selectCookTime = `SELECT * FROM CookTimes WHERE cookTimeID = '${data.cookTimeID}'`;
+
+    // Run the 1st query
+    db.pool.query(queryUpdateTime, function (error, rows, fields) {
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error);
+            res.sendStatus(400);
+        }
+
+        // If there was no error, we run our second query and return that data so we can use it to update the people's
+        // table on the front-end
+        else {
+            // Run the second query
+            db.pool.query(selectCookTime, function (error, rows, fields) {
+
+                if (error) {
+                    console.log(error);
+                    res.sendStatus(400);
+                } else {
+                    res.send(rows);
+                }
+            })
+        }
+    })
+});
+
+
+
 /*
     LISTENER
 */
