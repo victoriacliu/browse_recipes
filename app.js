@@ -291,6 +291,33 @@ app.delete('/delete-cookTimes-ajax/', function (req, res, next) {
     })
 });
 
+app.delete('/delete-recipes-ajax/', function (req, res, next) {
+    let data = req.body;
+    let recipeID = parseInt(data.recipeID);
+    let deleteRecipe = `DELETE FROM Recipes WHERE recipeID = ?`;
+
+
+    // Run the 1st query
+    db.pool.query(deleteRecipe, [recipeID], function (error, rows, fields) {
+
+        if (error) {
+            console.log(error);
+            res.sendStatus(400);
+        } else {
+            db.pool.query(deleteRecipe, [recipeID], function (error, rows, fields) {
+
+                if (error) {
+                    console.log(error);
+                    res.sendStatus(400);
+
+                } else {
+                    res.sendStatus(204);
+                }
+            })
+        }
+    })
+});
+
 
 app.put('/put-equipment-ajax', function (req, res, next) {
     let data = req.body;
