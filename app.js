@@ -385,6 +385,38 @@ app.put('/put-cookTimes-ajax', function (req, res, next) {
 });
 
 
+app.put('/put-recipe-ajax', function (req, res, next) {
+    let data = req.body;
+
+    let queryUpdateWorld = `UPDATE Recipes SET recipeName = '${data.recipeName}', serving = '${data.serving}', categoryID = '${data.categoryID}', equipmentID = '${data.equipmentID}', cookTimeID = '${data.cookTimeID}', dietaryRestriction = '${data.dietaryRestriction}', WHERE Recipes.recipeID = '${data.recipeID}'`;
+    let selectEquipment = `SELECT * FROM Recipes WHERE recipeID = '${data.recipeID}'`;
+
+    // Run the 1st query
+    db.pool.query(queryUpdateWorld, function (error, rows, fields) {
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error);
+            res.sendStatus(400);
+        }
+
+        // If there was no error, we run our second query and return that data so we can use it to update the people's
+        // table on the front-end
+        else {
+            // Run the second query
+            db.pool.query(selectEquipment, function (error, rows, fields) {
+
+                if (error) {
+                    console.log(error);
+                    res.sendStatus(400);
+                } else {
+                    res.send(rows);
+                }
+            })
+        }
+    })
+});
+
 
 /*
     LISTENER
