@@ -1,0 +1,146 @@
+{{!-- Just some plain text --}}
+
+<h1>Recipes database</h1>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<link rel="stylesheet" href="main.css">
+
+{{!-- The Data from our Database --}}
+<header>
+    <nav class='global'>
+        <a href='/'> Home Page | </a>
+        <a href='/recipes'> Recipes | </a>
+        <a href='/categories'> Categories | </a>
+        <a href='/ingredients'> Ingredients | </a>
+        <a href='/cookTimes'> Cook Times</a>
+    </nav>
+</header>
+<br />
+<br />
+
+{{!-- Create a table --}}
+<table id="recipe-table">
+    <table border="1">
+
+        {{!-- Header section --}}
+        <thead>
+
+            <tr>
+                {{#each data.[0]}}
+                <th>
+                    {{@key}}
+                </th>
+                {{/each}}
+                <th>delete</th>
+            </tr>
+        </thead>
+
+
+        {{!-- Body section --}}
+        <tbody>
+
+            {{#each data}}
+            <tr>
+                <td>{{this.recipeID}}</td>
+                <td>{{this.recipeName}}</td>
+                <td>{{this.serving}}</td>
+                <td>{{this.categoryID}}</td>
+                <td>{{this.equipmentID}}</td>
+                <td>{{this.cookTimeID}}</td>
+                <td>{{this.dietaryRestriction}}</td>
+                <td><button onclick="deleteRecipe({{this.recipeID}})">Delete</button></td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+
+    <script src="./js/delete_recipes.js"></script>
+
+    <h2>Adding Data </h2>
+    <p>To add a new Recipe, please enter the name and optionally, other info you have from it. Then, click `Submit`!</p>
+    <form id="add-recipe-form" method="POST" action="/add-recipe-form">
+        <label for="input-recipeName">Recipe Name: </label>
+        <input type="text" name="input-recipeName" id="input-recipeName"> <br />
+
+        <label for="input-serving"> How many servings does this yield? </label>
+        <input type="text" name="input-serving" id="input-serving"> <br />
+
+        <label for="input-category"> Which category does this belong to? </label>
+        <select name="input-category" id="input-category">
+            <option value="test">Select a category</option>
+            {{#each data}}
+            <option value="{{this.categoryID}}">{{this.categoryID}}</option>
+            {{/each}}
+        </select>
+        <br />
+        <label for="input-equipment"> Which equipment does this use? </label>
+        <select name="input-equipment" id="input-equipment">
+            <option value="test">Select a equipment</option>
+            {{#each data}}
+            <option value="{{this.equipmentID}}">{{this.equipmentID}}</option>
+            {{/each}}
+        </select>
+        <br />
+        <label for="input-cookTimeID"> How long does this take to cook? </label>
+        <select name="input-cookTimeID" id="input-cookTimeID">
+            <option value="test">Select a cook time ID</option>
+            {{#each data}}
+            <option value="{{this.cookTimeID}}">{{this.cookTimeID}}</option>
+            {{/each}}
+        </select>
+
+        <label for="input-dietary"> Dietary Restrictions? </label>
+        <input type="text" name="input-dietary" id="input-dietary"> <br />
+
+        <br />
+        <button type="submit">Submit</button>
+    </form>
+
+    <form id="update-recipe-form-ajax">
+        <legend>
+            <h2>Update Recipe</h2>
+        </legend>
+        <fieldset class="fields">
+            <label> Recipe ID: </label>
+            <select name="update-recipeID" id="mySelect">
+                <option value="test">Select a recipeID</option>
+                {{#each data}}
+                <option value="{{this.recipeID}}">{{this.recipeID}}</option>
+                {{/each}}
+            </select>
+            <label> Recipe Name </label> <input type="text" id="update-recipeName">
+            <label> Serving size </label> <input type="text" id="update-serving">
+
+            <label> Category </label>
+            <select name="update-category" id="update-category">
+                <option value="test">Select a category</option>
+                {{#each data}}
+                <option value="{{this.categoryID}}">{{this.categoryID}}</option>
+                {{/each}}
+
+            <label> Equipment </label>
+            <select name="update-equipment" id="update-equipment">
+                <option value="test">Select an equipment</option>
+                {{#each data}}
+                <option value="{{this.equipmentID}}">{{this.equipmentID}}</option>
+                {{/each}}
+
+            <label> cook time </label>
+            <select name="update-cookTimeID" id="update-cookTimeID">
+                <option value="test">Select a cookTime</option>
+                {{#each data}}
+                <option value="{{this.cookTimeID}}">{{this.cookTimeID}}</option>
+                {{/each}}
+
+            <label> Dietary Restriction </label> <input type="text" id="update-dietary">
+
+
+</fieldset>
+
+
+        <input class="btn" type="submit" id="updateSaveRecipes" value="Update Recipes">
+
+    </form>
+
+
+    <script src="./js/update_recipe.js"></script>
