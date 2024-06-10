@@ -66,7 +66,7 @@
 
         <label for="input-category"> Which category does this belong to? </label>
         <select name="input-category" id="input-category">
-            <option value="test">Select a category ID</option>
+            <option value="test">Select a category</option>
             {{#each data}}
             <option value="{{this.categoryID}}">{{this.categoryID}}</option>
             {{/each}}
@@ -74,7 +74,7 @@
         <br />
         <label for="input-equipment"> Which equipment does this use? </label>
         <select name="input-equipment" id="input-equipment">
-            <option value="test">Select a equipment ID</option>
+            <option value="test">Select a equipment</option>
             {{#each data}}
             <option value="{{this.equipmentID}}">{{this.equipmentID}}</option>
             {{/each}}
@@ -95,25 +95,47 @@
         <button type="submit">Submit</button>
     </form>
 
-    <form id="update-equipment-form-ajax">
+    <form id="update-recipe-form-ajax">
         <legend>
-            <h2>Update Equipment</h2>
+            <h2>Update Recipe</h2>
         </legend>
         <fieldset class="fields">
-            <label> Equipment ID: </label>
-            <select name="update-equipmentID" id="mySelect">
-                <option value="test">Select an EquipmentID</option>
+            <label> Recipe ID: </label>
+            <select name="update-recipeID" id="mySelect">
+                <option value="test">Select a recipeID</option>
+                {{#each data}}
+                <option value="{{this.recipeID}}">{{this.recipeID}}</option>
+                {{/each}}
+            </select>
+            <label> Recipe Name </label> <input type="text" id="update-recipeName">
+            <label> Serving size </label> <input type="text" id="update-serving">
+
+            <label> Category </label>
+            <select name="update-category" id="update-category">
+                <option value="test">Select a category</option>
+                {{#each data}}
+                <option value="{{this.categoryID}}">{{this.categoryID}}</option>
+                {{/each}}
+
+            <label> Equipment </label>
+            <select name="update-equipment" id="update-equipment">
+                <option value="test">Select an equipment</option>
                 {{#each data}}
                 <option value="{{this.equipmentID}}">{{this.equipmentID}}</option>
                 {{/each}}
-            </select>
-            <label> Equipment Name </label> <input type="text" id="update-equipmentName">
-            <label> Special Equipment </label>
-            <select name="update-specialEquipment" id="update-specialEquipment">
-                <option value="test">Is this a special Equipment?</option>
-                <option value="0"> No </option>
-                <option value="1"> Yes </option>
-        </fieldset>
+
+            <label> cook time </label>
+            <select name="update-cookTimeID" id="update-cookTimeID">
+                <option value="test">Select a cookTime</option>
+                {{#each data}}
+                <option value="{{this.cookTimeID}}">{{this.cookTimeID}}</option>
+                {{/each}}
+
+            <label> Dietary Restriction </label> <input type="text" id="update-dietary">
+
+
+</fieldset>
+
 
         <input class="btn" type="submit" id="updateSaveEquipment" value="Update Equipment">
 
