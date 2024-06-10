@@ -298,13 +298,13 @@ app.delete('/delete-recipes-ajax/', function (req, res, next) {
 
 
     // Run the 1st query
-    db.pool.query(deleteRecipe, [recipeID], function (error, rows, fields) {
+    db.pool.query(deleteRecipes, [recipeID], function (error, rows, fields) {
 
         if (error) {
             console.log(error);
             res.sendStatus(400);
         } else {
-            db.pool.query(deleteRecipe, [recipeID], function (error, rows, fields) {
+            db.pool.query(deleteRecipes, [recipeID], function (error, rows, fields) {
 
                 if (error) {
                     console.log(error);
