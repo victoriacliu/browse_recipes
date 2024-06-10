@@ -87,7 +87,8 @@ app.post('/add-recipe-form', function (req, res) {
     }
 
     // Create the query and run it on the database
-    query1 = `INSERT INTO Equipment (equipmentName,specialEquipment) VALUES ('${data['input-equipmentName']}', '${data['input-specialEquipment']}')`;
+    query1 = `INSERT INTO Recipes (recipeName,serving, categoryID, equipmentID, cookTimeID, dietaryRestriction) 
+        VALUES ('${data['input-recipeName']}', '${data['input-serving']}', '${data['input-category']}', '${data['input-equipment']}', '${data['input-cookTimeID']}', '${data['input-dietary']}')`;
     db.pool.query(query1, function (error, rows, fields) {
 
         // Check to see if there was an error
