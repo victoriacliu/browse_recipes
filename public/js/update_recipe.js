@@ -29,14 +29,18 @@ updateRecipeForm.addEventListener("submit", function (e) {
 
     // Put our data we want to send in a javascript object
     let data = {
-        equipmentID: equipmentIDValue,
-        equipmentName: equipmentNameValue,
-        specialEquipment: specialValue
+        recipeID: recipeIDValue,
+        recipeName: recipeNameValue,
+        serving: servingValue,
+        categoryID: categoryValue,
+        equipmentID: equipmentValue,
+        cookTimeID: cookTimeValue,
+        dietaryRestriction: dietaryValue
     }
 
     // Setup our AJAX request
     var xhttp = new XMLHttpRequest();
-    xhttp.open("PUT", "/put-equipment-ajax", true);
+    xhttp.open("PUT", "/put-recipe-ajax", true);
     xhttp.setRequestHeader("Content-type", "application/json");
 
     // Tell our AJAX request how to resolve
@@ -44,7 +48,7 @@ updateRecipeForm.addEventListener("submit", function (e) {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
 
             // Add the new data to the table
-            updateRow(xhttp.response, equipmentIDValue);
+            updateRow(xhttp.response, recipeIDValue);
             window.location.reload();
 
         }
@@ -59,25 +63,37 @@ updateRecipeForm.addEventListener("submit", function (e) {
 })
 
 
-function updateRow(data, equipmentID) {
+function updateRow(data, recipeID) {
     let parsedData = JSON.parse(data);
 
-    let table = document.getElementById("equipment-table");
+    let table = document.getElementById("recipe-table");
 
     for (let i = 0, row; row = table.rows[i]; i++) {
         //iterate through rows
         //rows would be accessed using the "row" variable assigned in the for loop
-        if (table.rows[i].getAttribute("data-value") == equipmentID) {
+        if (table.rows[i].getAttribute("data-value") == recipeID) {
 
             // Get the location of the row where we found the matching person ID
             let updateRowIndex = table.getElementsByTagName("tr")[i];
 
             // Get td of homeworld value
             let td = updateRowIndex.getElementsByTagName("td")[3];
-            td.innerHTML = parsedData[0].equipmentName;
+            td.innerHTML = parsedData[0].recipeName;
 
             td = updateRowIndex.getElementsByTagName("td")[4];
-            td.innerHTML = parsedData[0].specialEquipment;
+            td.innerHTML = parsedData[0].serving;
+
+            td = updateRowIndex.getElementsByTagName("td")[5];
+            td.innerHTML = parsedData[0].categoryID;
+
+            td = updateRowIndex.getElementsByTagName("td")[6];
+            td.innerHTML = parsedData[0].equipmentID;
+
+            td = updateRowIndex.getElementsByTagName("td")[7];
+            td.innerHTML = parsedData[0].cookTimeID;
+
+            td = updateRowIndex.getElementsByTagName("td")[8];
+            td.innerHTML = parsedData[0].dietaryRestriction;
 
         }
     }
