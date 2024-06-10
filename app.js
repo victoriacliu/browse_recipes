@@ -60,14 +60,30 @@ app.get('/recipes', function (req, res) {
     });
 });
 
-app.post('/add-equipment-form', function (req, res) {
+app.post('/add-recipe-form', function (req, res) {
     // Capture the incoming data and parse it back to a JS object
     let data = req.body;
 
     // Capture NULL values
-    let specialEquipment = parseInt(data['input-specialEquipment']);
-    if (isNaN(specialEquipment)) {
-        specialEquipment = 'NULL'
+    let category = parseInt(data['input-category']);
+    if (isNaN(category)) {
+        category = 'NULL'
+    }
+    let equip = parseInt(data['input-equipment']);
+    if (isNaN(equip)) {
+        equip = 'NULL'
+    }
+    let serving = parseInt(data['input-serving']);
+    if (isNaN(serving)) {
+        serving = 'NULL'
+    }
+    let cookTimeID = parseInt(data['input-cookTimeID']);
+    if (isNaN(cookTimeID)) {
+        cookTimeID = 'NULL'
+    }
+    let dietary = parseInt(data['input-dietary']);
+    if (isNaN(dietary)) {
+        dietary = 'NULL'
     }
 
     // Create the query and run it on the database
