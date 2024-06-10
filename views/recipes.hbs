@@ -18,14 +18,12 @@
 <br />
 
 {{!-- Create a table --}}
-<table id="equipment-table">
+<table id="recipe-table">
     <table border="1">
 
         {{!-- Header section --}}
         <thead>
 
-            {{!-- For just the first row, we print each key of the row object as a header cell so we
-            know what each column means when the page renders --}}
             <tr>
                 {{#each data.[0]}}
                 <th>
@@ -42,30 +40,57 @@
 
             {{#each data}}
             <tr>
+                <td>{{this.recipeID}}</td>
+                <td>{{this.recipeName}}</td>
+                <td>{{this.serving}}</td>
+                <td>{{this.categoryID}}</td>
                 <td>{{this.equipmentID}}</td>
-                <td>{{this.equipmentName}}</td>
-                <td>{{this.specialEquipment}}</td>
-                <td><button onclick="deleteEquipment({{this.equipmentID}})">Delete</button></td>
+                <td>{{this.cookTimeID}}</td>
+                <td>{{this.dietaryRestriction}}</td>
+                <td><button onclick="deleteRecipe({{this.recipeID}})">Delete</button></td>
             </tr>
             {{/each}}
         </tbody>
     </table>
 
-    <script src="./js/delete_equipment.js"></script>
+    <script src="./js/delete_recipes.js"></script>
 
     <h2>Adding Data </h2>
-    <p>To add a new equipment, please enter the name and if it is a special equipment and click `Submit`!</p>
-    <form id="add-equipment-form" method="POST" action="/add-equipment-form">
-        <label for="input-equipmentName">Equipment Name: </label>
-        <input type="text" name="input-equipmentName" id="input-equipmentName"> <br />
+    <p>To add a new Recipe, please enter the name and optionally, other info you have from it. Then, click `Submit`!</p>
+    <form id="add-recipe-form" method="POST" action="/add-recipe-form">
+        <label for="input-recipeName">Recipe Name: </label>
+        <input type="text" name="input-recipeName" id="input-recipeName"> <br />
 
-        <label for="input-specialEquipment">Is this a specialized equipment just for this recipe?</label>
+        <label for="input-serving"> How many servings does this yield? </label>
+        <input type="text" name="input-serving" id="input-serving"> <br />
 
-        <select name="input-specialEquipment" id="input-specialEquipment">
-            <option value="1">Yes</option>
-            <option value="0">No</option>
-
+        <label for="input-category"> Which category does this belong to? </label>
+        <select name="input-category" id="input-category">
+            <option value="test">Select a category ID</option>
+            {{#each data}}
+            <option value="{{this.categoryID}}">{{this.categoryID}}</option>
+            {{/each}}
         </select>
+        <br />
+        <label for="input-equipment"> Which equipment does this use? </label>
+        <select name="input-equipment" id="input-equipment">
+            <option value="test">Select a equipment ID</option>
+            {{#each data}}
+            <option value="{{this.equipmentID}}">{{this.equipmentID}}</option>
+            {{/each}}
+        </select>
+        <br />
+        <label for="input-cookTimeID"> How long does this take to cook? </label>
+        <select name="input-cookTimeID" id="input-cookTimeID">
+            <option value="test">Select a cook time ID</option>
+            {{#each data}}
+            <option value="{{this.cookTimeID}}">{{this.cookTimeID}}</option>
+            {{/each}}
+        </select>
+
+        <label for="input-dietary"> Dietary Restrictions? </label>
+        <input type="text" name="input-dietary" id="input-dietary"> <br />
+
         <br />
         <button type="submit">Submit</button>
     </form>
