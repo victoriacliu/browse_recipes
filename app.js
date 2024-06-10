@@ -294,7 +294,7 @@ app.delete('/delete-cookTimes-ajax/', function (req, res, next) {
 app.delete('/delete-recipes-ajax/', function (req, res, next) {
     let data = req.body;
     let recipeID = parseInt(data.recipeID);
-    let deleteRecipe = `DELETE FROM Recipes WHERE recipeID = ?`;
+    let deleteRecipes = `DELETE FROM Recipes WHERE recipeID = ?`;
 
 
     // Run the 1st query
