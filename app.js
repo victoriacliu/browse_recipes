@@ -46,6 +46,20 @@ app.get('/ingredients', function (req, res) {
     });
 });
 
+app.get('/cookTimes', function (req, res) {
+    let query1 = "SELECT * FROM CookTimes;";
+    db.pool.query(query1, function (error, rows, fields) {
+        res.render('cookTimes', { data: rows });
+    });
+});
+
+app.get('/recipes', function (req, res) {
+    let query1 = "SELECT * FROM Recipes;";
+    db.pool.query(query1, function (error, rows, fields) {
+        res.render('recipes', { data: rows });
+    });
+});
+
 app.post('/add-equipment-form', function (req, res) {
     // Capture the incoming data and parse it back to a JS object
     let data = req.body;
