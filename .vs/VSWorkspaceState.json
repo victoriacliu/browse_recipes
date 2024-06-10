@@ -1,7 +1,12 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\database",
+    "\\public",
+    "\\public\\js",
+    "\\views",
+    "\\views\\layouts"
   ],
-  "SelectedNode": "\\C:\\Users\\TS\\Source\\Repos\\browse_recipes",
+  "SelectedNode": "\\views\\index.hbs",
   "PreviewInSolutionExplorer": false
 }
