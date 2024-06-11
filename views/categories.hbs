@@ -1,0 +1,67 @@
+{{!-- Just some plain text --}}
+
+<h1>Recipes database</h1>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<link rel="stylesheet" href="main.css">
+
+{{!-- The Data from our Database --}}
+<header>
+    <div class="navbar">
+    <nav class='global'>
+        <a href='/'> Home Page  </a>
+        <a href='/recipes'> Recipes  </a>
+        <a href='/categories'> Categories  </a>
+        <a href='/ingredients'> Ingredients </a>
+        <a href='/recipeingredients'> Recipes Ingredients (Intersection table)</a>
+        <a href='/cookTimes'> Cook Times</a>
+    </nav>
+    </div>
+</header>
+<br />
+<br />
+{{!-- Create a table --}}
+<h2>Categories</h2>
+<table id="category-table">
+    <table border="1">
+
+        {{!-- Header section --}}
+        <thead>
+
+            {{!-- For just the first row, we print each key of the row object as a header cell so we
+            know what each column means when the page renders --}}
+            <tr>
+                {{#each data.[0]}}
+                <th>
+                    {{@key}}
+                </th>
+                {{/each}}
+                <th>delete</th>
+            </tr>
+        </thead>
+
+        {{!-- Body section --}}
+        <tbody>
+
+            {{#each data}}
+            <tr>
+
+                <td>{{this.categoryID}}</td>
+                <td>{{this.category}}</td>
+                <td><button onclick="deleteCategory({{this.categoryID}})">Delete</button></td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+
+    <h3>*Deleting categories will delete any M:N relationships that uses this category!*</h3>
+
+    <script src="./js/delete_categories.js"></script>
+
+    <h2>Adding in a New Category</h2>
+    <p>To add a new category, please enter the category and click `Submit`!</p>
+    <form id="add-category-form" method="POST" action="/add-category-form">
+        <label for="input-category"> Category: </label>
+        <input type="text" name="input-category" id="input-category">
+        <input type="submit">
+    </form>

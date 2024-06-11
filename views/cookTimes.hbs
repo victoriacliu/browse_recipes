@@ -1,0 +1,66 @@
+{{!-- Just some plain text --}}
+
+<h1>Recipes database</h1>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<link rel="stylesheet" href="main.css">
+
+{{!-- The Data from our Database --}}
+<header>
+    <div class="navbar">
+    <nav class='global'>
+        <a href='/'> Home Page  </a>
+        <a href='/recipes'> Recipes  </a>
+        <a href='/categories'> Categories  </a>
+        <a href='/ingredients'> Ingredients </a>
+        <a href='/recipeingredients'> Recipes Ingredients (Intersection table)</a>
+        <a href='/cookTimes'> Cook Times</a>
+    </nav>
+    </div>
+</header>
+<br />
+<br />
+
+{{!-- Create a table --}}
+<h2>CookTimes</h2>
+<table id="recipe-table">
+    <table border="1">
+
+        {{!-- Header section --}}
+        <thead>
+
+            <tr>
+                <th> cookTimeID </th>
+                <th> Time Needed (in minutes) </th>
+                <th> Delete </th>
+            </tr>
+        </thead>
+
+
+        {{!-- Body section --}}
+        <tbody>
+
+            {{#each data}}
+            <tr>
+                <td>{{this.cookTimeID}}</td>
+                <td>{{this.time}}</td>
+                <td><button onclick="deleteCookTimes({{this.cookTimeID}})">Delete</button></td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+    <h3>*Deleting cookTime will delete any M:N relationships that uses this cook time!*</h3>
+
+    <script src="./js/delete_cookTimes.js"></script>
+
+    <h2>Adding Data </h2>
+    <p>To add a new cooking time, please enter the time and click `Submit`!</p>
+    <form id="add-cookTimes-form" method="POST" action="/add-cookTimes-form">
+        <label for="input-time">time: </label>
+        <input type="text" name="input-time" id="input-time">
+        <button type="submit">Submit</button>
+    </form>
+
+
+
+    <script src="./js/update_cookTimes.js"></script>

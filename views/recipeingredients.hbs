@@ -1,0 +1,101 @@
+{{!-- Just some plain text --}}
+
+<h1>Recipes database</h1>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<link rel="stylesheet" href="main.css">
+
+{{!-- The Data from our Database --}}
+<header>
+    <div class="navbar">
+        <nav class='global'>
+            <a href='/'> Home Page </a>
+            <a href='/recipes'> Recipes </a>
+            <a href='/categories'> Categories </a>
+            <a href='/ingredients'> Ingredients </a>
+            <a href='/recipeingredients'> Recipes Ingredients (Intersection table)</a>
+            <a href='/cookTimes'> Cook Times</a>
+        </nav>
+    </div>
+</header>
+<br />
+<br />
+
+{{!-- Create a table --}}
+<h2>RecipeIngredients (intersection table)</h2>
+<table id="recipeIngredient-table">
+    <table border="1">
+
+        {{!-- Header section --}}
+        <thead>
+
+            <tr>
+                <th> recipeIngredientID </th>
+                <th> recipeID </th>
+                <th> ingredientID </th>
+                <th> Amount of Ingredients Needed</th>
+            </tr>
+        </thead>
+
+
+        {{!-- Body section --}}
+        <tbody>
+            <tr data-value={{this.recipeIngredientID}}></tr>
+            {{#each data}}
+
+            <td>{{this.recipeIngredientID}}</td>
+            <td>{{this.recipeID}}</td>
+            <td>{{this.ingredientID}} </td>
+            <td>{{this.amount}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+
+    <script src="./js/delete_recipeingredients.js"></script>
+
+    <h2>Adding Data </h2>
+    <p>To add a new ingredients to the recipe, please fill out the form below and then, click `Submit`!</p>
+    <form id="add-recipeIngredient-form" method="POST" action="/add-recipeingredient-form">
+
+        <label for="input-recipeID">Recipe Name: </label>
+        <select name="input-recipeID" id="input-recipeID">
+            <option value="Test">Select a recipe</option>
+            {{#each recipes}}
+            <option value="{{this.recipeID}}">{{this.recipeName}}</option>
+            {{/each}}
+        </select>
+        <br />
+
+        <label for="input-ingredientID">Ingredient Name: </label>
+        <select name="input-ingredientID" id="input-ingredientID">
+            <option value="Test">Select an ingredient</option>
+            {{#each ingredients}}
+            <option value="{{this.ingredientID}}">{{this.ingredientName}}</option>
+            {{/each}}
+        </select>
+        <br />
+
+        <label for="input-amount"> Amount to add to recipe: </label>
+        <input type="text" name="input-amount" id="input-amount">
+
+        <button type="submit">Submit</button>
+    </form>
+
+    </br>
+
+    <div class="button1">
+        <a href="/recipes">
+            <button>Visit here to add/update a recipe!</button>
+        </a>
+        <br>
+        <br>
+
+        <a href="/ingredients">
+            <button>Visit here to add an ingredient!</button>
+        </a>
+
+    </div>
+
+
+    </body>
